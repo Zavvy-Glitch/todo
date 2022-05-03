@@ -21,6 +21,7 @@ function UserSettings() {
         type="checkbox"
         id="display completed"
         name="display completed"
+        onChange={(e) => settings.setDisComp(e.target.value)}
         checked={settings.dispComp}
         onClick={() => {
           settings.setDisComp();

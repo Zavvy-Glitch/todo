@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import useForm from "../../hooks/form.js";
+import { SettingsContext } from "../../context/Settings.js";
 
 import { v4 as uuid } from "uuid";
 
 const ToDo = (props) => {
   const { handleChange, handleSubmit } = useForm(addItem);
+  const settings = useContext(SettingsContext);
+  console.log(settings)
 
   function addItem(item) {
     item.id = uuid();
@@ -23,10 +26,10 @@ const ToDo = (props) => {
     props.setList([...props.list, item]);
   }
 
-  function deleteItem(id) {
-    const items = props.list.filter((item) => item.id !== id);
-    props.setList(items);
-  }
+  // function deleteItem(id) {
+  //   const items = props.list.filter((item) => item.id !== id);
+  //   props.setList(items);
+  // }
 
   return (
     <>

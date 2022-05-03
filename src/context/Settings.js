@@ -5,6 +5,7 @@ export const SettingsContext = React.createContext();
 function Settings(props) {
   let [itemPref, setItemPref] = useState(5);
   let [dispComp, setDisComp] = useState(true);
+  let [sort, setSort] = useState('difficulty');
 
   useEffect(() => {
     let item = JSON.parse(window.localStorage.getItem("settings")) || {};
@@ -14,15 +15,16 @@ function Settings(props) {
       console.log("This", item);
       setItemPref(item.itemPref);
       setDisComp(item.dispComp);
+      setSort(item.sort)
     }
   }, []);
 
   useEffect(() => {
     window.localStorage.setItem(
       "settings",
-      JSON.stringify({ itemPref, dispComp })
+      JSON.stringify({ itemPref, dispComp, sort })
     );
-  }, [itemPref, dispComp]);
+  }, [itemPref, dispComp, sort]);
 
   let val = {
     dispComp,
