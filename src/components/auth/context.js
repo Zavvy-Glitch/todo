@@ -1,87 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import cookie from "react-cookies";
-import jwt from "jsonwebtoken";
+import jwt_decode from "jwt-decode";
+
+export const LoginContext = React.createContext();
 
 const testUsers = {
   admin: {
     password: "password",
     name: "Administrator",
+    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6eyJwYXNzd29yZCI6InBhc3N3b3JkIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifX0.qysVCmSrwjijUhr-EJZFPPuuG2HhDvavKbaQk7by-qo",
     role: "admin",
     capabilities: ["create", "read", "update", "delete"],
   },
   editor: {
     password: "password",
     name: "Editor",
+    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlZGl0b3IiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJFZGl0b3IifX0.HopkUTvokxGn_GpNY-e9sfOTYslKIbjBWNDTD6lCVqI",
     role: "editor",
     capabilities: ["read", "update"],
   },
   writer: {
     password: "password",
     name: "Writer",
+    token: "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3cml0ZXIiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJXcml0ZXIifX0.g_hayyIxz717Nt-B71nPdzUGMCuVw03jkciFXcYWXm0",
     role: "writer",
     capabilities: ["create"],
   },
 };
 
-export const LoginContext = React.createContext();
+function LoginProvider({ children }) {
+  let [loggedIn, setLoggedIn] = useState(false);
+  let [user, setUser] = useState({});
+  let [error, setError] = useState(null);
 
-class LoginProvider extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false,
-      can: this.can,
-      login: this.login,
-      logout: this.logout,
-      user: { capabilities: [] },
-    };
-  }
-
-  can = (capability) => {
-    return this?.state?.user?.capabilities?.includes(capability);
+  const can = (capability) => {
+    return user?.capabilities?.includes(capability);
   };
 
-  login = (username, password) => {
-    if (testUsers[username]) {
-      // Create a "good" token, like you'd get from a server
-      const token = jwt.sign(testUsers[username], process.env.REACT_APP_SECRET);
-      this.validateToken(token);
+  const login = async (username, password) => {
+    let authCredentials = testUsers[username];
+
+    if (authCredentials && authCredentials.password === password) {
+      try {
+        _validateToken(authCredentials.token);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
-  logout = () => {
-    this.setLoginState(false, null, {});
+  const logout = () => {
+    setUser({});
+    setLoggedIn(false);
+    setError(null);
+    cookie.remove("auth");
   };
 
-  validateToken = (token) => {
+  const _validateToken = (token) => {
     try {
-      let user = jwt.verify(token, process.env.REACT_APP_SECRET);
-      this.setLoginState(true, token, user);
+      let user = jwt_decode(token);
+      if (user) {
+        setUser(user);
+        setLoggedIn(true);
+        cookie.save("auth", token);
+      }
     } catch (e) {
-      this.setLoginState(false, null, {});
-      console.log("Token Validation Error", e);
+      setLoggedIn(false, null, {});
+      setError(e);
     }
   };
 
-  setLoginState = (loggedIn, token, user) => {
-    cookie.save("auth", token);
-    this.setState({ token, loggedIn, user });
+
+  const values = {
+    user,
+    can,
+    loggedIn,
+    login,
+    logout,
+    error,
   };
 
-  componentDidMount() {
-    const qs = new URLSearchParams(window.location.search);
-    const cookieToken = cookie.load("auth");
-    const token = qs.get("token") || cookieToken || null;
-    this.validateToken(token);
-  }
-
-  render() {
-    return (
-      <LoginContext.Provider value={this.state}>
-        {this.props.children}
-      </LoginContext.Provider>
-    );
-  }
+  return (
+    <LoginContext.Provider value={values}>{children}</LoginContext.Provider>
+  );
 }
 
 export default LoginProvider;

@@ -1,44 +1,44 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { When } from "react-if";
 
 import { LoginContext } from "./context.js";
 
-class Login extends React.Component {
-  static contextType = LoginContext;
+function Login () {
 
-  constructor(props) {
-    super(props);
-    this.state = { username: "", password: "" };
-    console.log(props)
-  }
+  const { loggedIn, login, logout } = useContext(LoginContext)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+
+  const handleChange = (e) => {
+    let {name, value} = e.target;
+    if(name === 'username') setUsername(value);
+    if(name === 'password') setPassword(value);
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.context.login(this.state.username, this.state.password);
+    login(username, password);
   };
-
-  render() {
     return (
       <>
-        <When condition={this.context.loggedIn}>
-          <button onClick={this.context.logout}>Log Out</button>
+        <When condition={loggedIn}>
+          <button onClick={logout}>Log Out</button>
         </When>
 
-        <When condition={!this.context.loggedIn}>
-          <form onSubmit={this.handleSubmit}>
+        <When condition={!loggedIn}>
+          <form onSubmit={handleSubmit}>
             <input
+              data-testid="username"
               placeholder="Username"
-              name="Username"
-              onChange={this.handleChange}
+              name="username"
+              onChange={handleChange}
             />
             <input
+              data-testid="password"
               placeholder="Password"
-              name="Password"
-              onChange={this.handleChange}
+              name="password"
+              onChange={handleChange}
             />
             <button>Login</button>
           </form>
@@ -46,6 +46,5 @@ class Login extends React.Component {
       </>
     );
   }
-}
 
 export default Login;
