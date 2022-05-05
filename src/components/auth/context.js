@@ -5,30 +5,25 @@ import jwt_decode from "jwt-decode";
 export const LoginContext = React.createContext();
 
 const testUsers = {
-  admin: {
-    password: "password",
-    name: "Administrator",
-    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6eyJwYXNzd29yZCI6InBhc3N3b3JkIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifX0.qysVCmSrwjijUhr-EJZFPPuuG2HhDvavKbaQk7by-qo",
-    role: "admin",
-    capability: ["create", "read", "update", "delete"],
+  Administrator: {
+    password: 'admin',
+    name: 'Administrator',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWRtaW5pc3RyYXRvciIsInJvbGUiOiJhZG1pbiIsImNhcGFiaWxpdGllcyI6IlsnY3JlYXRlJywncmVhZCcsJ3VwZGF0ZScsJ2RlbGV0ZSddIiwiaWF0IjoxNTE2MjM5MDIyfQ.pAZXAlTmC8fPELk2xHEaP1mUhR8egg9TH5rCyqZhZkQ'
   },
-  editor: {
-    password: "password",
-    name: "Editor",
-    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlZGl0b3IiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJFZGl0b3IifX0.HopkUTvokxGn_GpNY-e9sfOTYslKIbjBWNDTD6lCVqI",
-    role: "editor",
-    capability: ["read", "update"],
+  User: {
+    password: 'user',
+    name: 'User',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVXNlciIsInJvbGUiOiJ1c2VyIiwiY2FwYWJpbGl0aWVzIjoiWydyZWFkJ10iLCJpYXQiOjE1MTYyMzkwMjJ9.WXYvIKLdPz_Mm0XDYSOJo298ftuBqqjTzbRvCpxa9Go'
   },
-  writer: {
+  Writer: {
     password: "password",
     name: "Writer",
     token: "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3cml0ZXIiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJXcml0ZXIifX0.g_hayyIxz717Nt-B71nPdzUGMCuVw03jkciFXcYWXm0",
-    role: "writer",
-    capability: ["create"],
   },
 };
 
 function LoginProvider({ children }) {
+
   let [loggedIn, setLoggedIn] = useState(false);
   let [user, setUser] = useState({});
   let [error, setError] = useState(null);
@@ -49,13 +44,6 @@ function LoginProvider({ children }) {
     }
   };
 
-  const logout = () => {
-    setUser({});
-    setLoggedIn(false);
-    setError(null);
-    cookie.remove("auth");
-  };
-
   const _validateToken = (token) => {
     try {
       let user = jwt_decode(token);
@@ -70,6 +58,12 @@ function LoginProvider({ children }) {
     }
   };
 
+  const logout = () => {
+    setUser({});
+    setLoggedIn(false);
+    setError(null);
+    cookie.remove("auth");
+  };
 
   const values = {
     user,
@@ -78,7 +72,6 @@ function LoginProvider({ children }) {
     login,
     logout,
     error,
-    _validateToken,
   };
 
   return (
