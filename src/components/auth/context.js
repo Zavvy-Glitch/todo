@@ -16,9 +16,9 @@ const testUsers = {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVXNlciIsInJvbGUiOiJ1c2VyIiwiY2FwYWJpbGl0aWVzIjoiWydyZWFkJ10iLCJpYXQiOjE1MTYyMzkwMjJ9.WXYvIKLdPz_Mm0XDYSOJo298ftuBqqjTzbRvCpxa9Go'
   },
   Writer: {
-    password: "password",
+    password: "writer",
     name: "Writer",
-    token: "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3cml0ZXIiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJXcml0ZXIifX0.g_hayyIxz717Nt-B71nPdzUGMCuVw03jkciFXcYWXm0",
+    token: "eyJhbGciOiJIUzI1NiJ9.eyJwYXNzd29yZCI6IndyaXRlciIsIm5hbWUiOiJXcml0ZXIifQ.q9egPAo_gMcXnoikO-DP5Z_9f9vh4bwbvQLTM_t8mdM",
   },
 };
 
