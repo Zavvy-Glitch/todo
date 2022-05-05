@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/Zavvy-Glitch/todo/static/js/main.50d462f3.chunk.js",
-    "main.js.map": "/Zavvy-Glitch/todo/static/js/main.50d462f3.chunk.js.map",
+    "main.js": "/Zavvy-Glitch/todo/static/js/main.87d0f3aa.chunk.js",
+    "main.js.map": "/Zavvy-Glitch/todo/static/js/main.87d0f3aa.chunk.js.map",
     "runtime-main.js": "/Zavvy-Glitch/todo/static/js/runtime-main.bc21015b.js",
     "runtime-main.js.map": "/Zavvy-Glitch/todo/static/js/runtime-main.bc21015b.js.map",
-    "static/js/2.bc72690b.chunk.js": "/Zavvy-Glitch/todo/static/js/2.bc72690b.chunk.js",
-    "static/js/2.bc72690b.chunk.js.map": "/Zavvy-Glitch/todo/static/js/2.bc72690b.chunk.js.map",
+    "static/js/2.1302bdf8.chunk.js": "/Zavvy-Glitch/todo/static/js/2.1302bdf8.chunk.js",
+    "static/js/2.1302bdf8.chunk.js.map": "/Zavvy-Glitch/todo/static/js/2.1302bdf8.chunk.js.map",
     "index.html": "/Zavvy-Glitch/todo/index.html",
-    "static/js/2.bc72690b.chunk.js.LICENSE.txt": "/Zavvy-Glitch/todo/static/js/2.bc72690b.chunk.js.LICENSE.txt"
+    "static/js/2.1302bdf8.chunk.js.LICENSE.txt": "/Zavvy-Glitch/todo/static/js/2.1302bdf8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.bc21015b.js",
-    "static/js/2.bc72690b.chunk.js",
-    "static/js/main.50d462f3.chunk.js"
+    "static/js/2.1302bdf8.chunk.js",
+    "static/js/main.87d0f3aa.chunk.js"
   ]
 }
