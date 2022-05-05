@@ -43,11 +43,11 @@ export default function App() {
 
       <BrowserRouter>
       <Header incomplete={incomplete} />
-      <Link to='/'>Home Page</Link>
+      <Link to='/todo'>Home Page</Link>
       <Link to='/settings'>Settings</Link>
         <Routes>
           <Route path='/settings' element={<UserSettings />}/>
-          <Route path='/' element={<ToDo setIncomplete={setIncomplete} setList={setList} list={list} />}/>
+          <Route path='/todo' element={<ToDo setIncomplete={setIncomplete} setList={setList} list={list} />}/>
         </Routes>
       </BrowserRouter>
 
