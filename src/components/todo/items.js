@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { SettingsContext } from "../../context/Settings.js";
 
+
 function Items(props) {
-  let settings = useContext(SettingsContext);
-  let [current, setCurrent] = useState(1);
+  
+  const settings = useContext(SettingsContext);
+  const [current, setCurrent] = useState(1);
 
   function toggleComplete(id) {
     const items = props.list.map((item) => {

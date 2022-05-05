@@ -1,18 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import Settings from "./context/Settings.js";
 
 import App from "./app.js";
 
 class Main extends React.Component {
   render() {
-      return (
-        <Settings>
-          <App />
-        </Settings>
-      )
-    } 
+    return (
+      <Settings>
+        <App />
+      </Settings>
+    );
   }
+}
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<Main />, rootElement);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Main />);

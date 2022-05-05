@@ -26,20 +26,25 @@ function Settings(props) {
     );
   }, [itemPref, dispComp, sort]);
 
-  let val = {
+  let values = {
     dispComp,
     setDisComp: function () {
       setDisComp(!dispComp);
     },
     itemPref,
     setItemPref: function (count) {
-      setItemPref(count);
+        setItemPref(count);
     },
-    sort: "",
+    sort,
+    setSort: function (string) {
+      if(typeof string === 'string'){
+        setSort(string)
+      }
+    }
   };
 
   return (
-    <SettingsContext.Provider value={val}>
+    <SettingsContext.Provider value={values}>
       {props.children}
     </SettingsContext.Provider>
   );

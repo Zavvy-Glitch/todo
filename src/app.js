@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import ToDo from "./components/todo/todo.js";
 import Header from "./components/todo/header.js";
@@ -39,10 +40,18 @@ export default function App() {
           <div>Users with delete access can see this</div>
         </Auth>
       </LoginContext>
-        <Header incomplete={incomplete} />
-        <UserSettings />
-        <ToDo setIncomplete={setIncomplete} setList={setList} list={list} />
-        <Items list={list} setList={setList} />
+
+      <BrowserRouter>
+      <Header incomplete={incomplete} />
+      <Link to='/'>Home Page</Link>
+      <Link to='/settings'>Settings</Link>
+        <Routes>
+          <Route path='/settings' element={<UserSettings />}/>
+          <Route path='/' element={<ToDo setIncomplete={setIncomplete} setList={setList} list={list} />}/>
+        </Routes>
+      </BrowserRouter>
+
+      <Items list={list} setList={setList} />
     </>
   );
 }
