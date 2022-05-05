@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "main": "index.js",
-  "homepage": "https://github.com/Zavvy-Glitch/todo",
+  "homepage": "https://zavvy-glitch.github.io/todo/",
   "dependencies": {
     "@testing-library/react": "^12.1.5",
     "axios": "^0.27.2",
