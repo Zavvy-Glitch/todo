@@ -40,7 +40,7 @@ function Login () {
               name="password"
               onChange={handleChange}
             />
-            <button>Login</button>
+            <button type ="submit">Login</button>
           </form>
         </When>
       </>

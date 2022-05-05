@@ -10,21 +10,21 @@ const testUsers = {
     name: "Administrator",
     token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6eyJwYXNzd29yZCI6InBhc3N3b3JkIiwibmFtZSI6IkFkbWluaXN0cmF0b3IifX0.qysVCmSrwjijUhr-EJZFPPuuG2HhDvavKbaQk7by-qo",
     role: "admin",
-    capabilities: ["create", "read", "update", "delete"],
+    capability: ["create", "read", "update", "delete"],
   },
   editor: {
     password: "password",
     name: "Editor",
     token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlZGl0b3IiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJFZGl0b3IifX0.HopkUTvokxGn_GpNY-e9sfOTYslKIbjBWNDTD6lCVqI",
     role: "editor",
-    capabilities: ["read", "update"],
+    capability: ["read", "update"],
   },
   writer: {
     password: "password",
     name: "Writer",
     token: "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3cml0ZXIiOnsicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJXcml0ZXIifX0.g_hayyIxz717Nt-B71nPdzUGMCuVw03jkciFXcYWXm0",
     role: "writer",
-    capabilities: ["create"],
+    capability: ["create"],
   },
 };
 
@@ -78,6 +78,7 @@ function LoginProvider({ children }) {
     login,
     logout,
     error,
+    _validateToken,
   };
 
   return (
