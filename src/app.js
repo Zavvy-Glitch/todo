@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import ToDo from "./components/todo/todo.js";
-import Header from "./components/todo/header.js";
-import Items from "./components/todo/items.js";
+import Items from "./components/items/items.js";
 import UserSettings from "./components/todo/useSettings.js";
 import Auth from "./components/auth/auth.js";
 import Login from "./components/auth/login.js";
@@ -42,12 +41,21 @@ export default function App() {
       </LoginContext>
 
       <BrowserRouter>
-      <Header incomplete={incomplete} />
-      <Link to='/todo'>Home Page</Link>
-      <Link to='/settings'>Settings</Link>
+        <Link to="/todo">Home Page</Link>
+        <Link to="/settings">Settings</Link>
         <Routes>
-          <Route path='/settings' element={<UserSettings />}/>
-          <Route path='/todo' element={<ToDo setIncomplete={setIncomplete} setList={setList} list={list} />}/>
+          <Route path="/settings" element={<UserSettings />} />
+          <Route
+            path="/todo"
+            element={
+              <ToDo
+                incomplete={incomplete} 
+                setIncomplete={setIncomplete}
+                setList={setList}
+                list={list}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
 

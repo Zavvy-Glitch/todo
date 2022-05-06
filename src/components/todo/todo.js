@@ -1,76 +1,78 @@
-import React from "react";
-import useForm from "../../hooks/form.js";
+import React, { useContext, useEffect, useState } from 'react';
+import useForm from '../../hooks/form.js';
 
+import { SettingsContext } from '../../context/Settings.js';
+import { v4 as uuid } from 'uuid';
 
-import { v4 as uuid } from "uuid";
+import Header from '../header/header.js'
+import Form from '../form/Form.js'
+import List from '../items/items.js'
+import Footer from '../footer/Footer.js'
 
-function ToDo (props) {
-  
-  const addItem = (item) => {
+const ToDo = () => {
+
+  const settings = useContext(SettingsContext);
+
+  const defaultValues = {
+    difficulty: 4,
+  }
+
+  const [list, setList] = useState([]);
+  const [incomplete, setIncomplete] = useState([]);
+  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+
+  function addItem(item) {
+    console.log(item);
     item.id = uuid();
     item.complete = false;
-    const dup = props.list.filter((todo) => {
-      if (todo.text.toLowerCase() === item.text.toLowerCase()) {
-        if (todo.assignee.toLowerCase() === item.assignee.toLowerCase()) {
-          return true;
-        }
-      }
-      return false;
-    });
-    if (dup.length > 0) {
-      return;
-    }
-    props.setList([...props.list, item]);
-  };
-  
-  const { handleChange, handleSubmit } = useForm(addItem);
+    setList([...list, item]);
+    console.log(settings.itemsToDisplay)
+  }
 
   // function deleteItem(id) {
-  //   const items = props.list.filter((item) => item.id !== id);
-  //   props.setList(items);
+  //   const items = list.filter(item => item.id !== id);
+  //   setList(items);
   // }
+
+  function toggleComplete(id) {
+
+    const items = list.map(item => {
+      if (item.id === id) {
+        item.complete = !item.complete;
+      }
+      return item;
+    });
+
+    setList(items);
+
+  }
+
+  useEffect(() => {
+    let incompleteCount = list.filter(item => !item.complete).length;
+    setIncomplete(incompleteCount);
+  }, [list]);
+
+  useEffect(() => {
+    document.title = `To Do List: ${incomplete}`;
+  }, [incomplete])
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <h2>Add To Do Item</h2>
+      <Header incomplete={incomplete} />
+      <div id='main'>
+      <h1>To Do List: {incomplete} items pending</h1>
+        <Form
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          defaultValues={defaultValues}
+        />
 
-        <label>
-          <span>To Do Item</span>
-          <input
-            onChange={handleChange}
-            name="text"
-            type="text"
-            placeholder="Item Details"
-          />
-        </label>
-
-        <label>
-          <span>Assigned To</span>
-          <input
-            onChange={handleChange}
-            name="assignee"
-            type="text"
-            placeholder="Assignee Name"
-          />
-        </label>
-
-        <label>
-          <span>Difficulty</span>
-          <input
-            onChange={handleChange}
-            defaultValue={3}
-            type="range"
-            min={1}
-            max={5}
-            name="difficulty"
-          />
-        </label>
-
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
-      </form>
+        <List
+          list={list}
+          toggleComplete={toggleComplete}
+        />
+      </div>
+    <Footer />
     </>
   );
 };
